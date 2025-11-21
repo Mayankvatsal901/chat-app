@@ -1,6 +1,6 @@
 import {React,useEffect} from 'react'
 import {Routes,Route} from 'react-router-dom'
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar.jsx"
 import Home from "./pages/Home" 
 import Signup from "./pages/Signup" 
 import Login from "./pages/Login" 
