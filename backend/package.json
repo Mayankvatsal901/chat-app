@@ -1,18 +1,16 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/index.cjs",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "dev": "nodemon src/index.cjs",
+    "start": "node src/index.cjs"
   },
   "author": "",
-  
   "license": "ISC",
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.3",
-    
     "cloudinary": "^2.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
