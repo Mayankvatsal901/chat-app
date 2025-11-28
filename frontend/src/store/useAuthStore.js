@@ -2,7 +2,10 @@ import {create} from "zustand"
 import { axiosInstance } from "../lib/axios.js"
 import toast from "react-hot-toast"
 import {io} from "socket.io-client"
-const BASE_URL=import.meta.env.MODE==="development"?"http://localhost:5002":"/api"
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5002"
+    : "https://chat-app-zgei.onrender.com";   // backend URL
 
 
 
@@ -89,22 +92,27 @@ export const useAuthStore=create((set,get)=>({
         }set({isUpdatingProfile:false});
 
     },
-    connectSocket:()=>{
-        const {authUser}=get()
-        if(!authUser||get().socket?.connected) return;
-        const socket=io(BASE_URL,{
-            query:{
-                userId:authUser._id
-            },
-        })
+   connectSocket: () => {
+  const { authUser } = get();
+  if (!authUser || get().socket?.connected) return;
 
-        socket.connect()
-        set({socket:socket})
-        socket.on("getOnlineUsers",(userIds)=>{// taking the ids from the backend
-            set({onlineUsers:userIds})
-        })
-        
-    },
+  const socket = io(
+    import.meta.env.MODE === "development"
+      ? "http://localhost:5002"
+      : "https://chat-app-zgei.onrender.com",
+    {
+      withCredentials: true,  // IMPORTANT for cookies
+      query: { userId: authUser._id },
+    }
+  );
+
+  set({ socket });
+
+  socket.on("getOnlineUsers", (userIds) => {
+    set({ onlineUsers: userIds });
+  });
+},
+
     disconnectSocket:()=>{
         if(get().socket?.connected) get().socket.disconnect();
         
