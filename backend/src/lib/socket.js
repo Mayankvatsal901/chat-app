@@ -4,17 +4,19 @@ const express=require("express")
 const app=express()
 
 const server=http.createServer(app) // as socket.io run on the raw http
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://chat-app-1-drsf.onrender.com", // frontend URL
+];
 
 
 
-
-const io=new Server(server,{
-    cors:{
-        origin:["http://localhost:5173"],
-
-
-    },
-})
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  }
+});
 function getReceiverSocketId(userId){
     return userSocketMap[userId];
     

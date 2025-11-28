@@ -16,9 +16,14 @@ const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
 
 app.use(express.json())
 app.use(cookieparser());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://chat-app-1-drsf.onrender.com", // frontend URL
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
