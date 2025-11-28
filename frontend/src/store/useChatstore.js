@@ -16,8 +16,9 @@ export const useChatStore=create((set,get)=>({
     getUsers:async()=>{
         try {
             set({isUserLoading:true})
-            const res=await axiosInstance.get("message/users");
+            const res=await axiosInstance.get("/message/users");
             set({users:res.data})
+            console.log("BACKEND RECEIVED USERS:", res.data);
 
 
             

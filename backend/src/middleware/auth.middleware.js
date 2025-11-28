@@ -22,9 +22,11 @@ const User=require('../models/user.model')
             return res.status(404).json({message:"user not found"})
         }
         req.user=user// like that you can a attribute 
+        console.log("ProtectRoute: User successfully attached to request:", user.fullName); 
          next()
         
     }catch(error){
+        
         res.status(500).json({message:"Internal error1"})
 
     }

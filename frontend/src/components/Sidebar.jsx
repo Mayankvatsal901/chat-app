@@ -8,6 +8,7 @@ function Sidebar() {
     const { getUsers, users, selectedUser, setSelectedUser, isUserLoading } = useChatStore();
     const { onlineUsers } = useAuthStore();
     const[showonline,setshowonline]=useState(false)
+   
 
     useEffect(() => {
         getUsers();
@@ -43,6 +44,7 @@ function Sidebar() {
 
 
             <div className="overflow-y-auto w-full py-3">
+                {console.log(users)}
 
                 {filtereduser.map((user) => {
                     // 🔥 Console each user individually
