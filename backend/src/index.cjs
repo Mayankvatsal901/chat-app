@@ -1,24 +1,24 @@
-const express=require("express")
-const dotenv=require('dotenv')
-const{connections}=require('./lib/db.js')
-const cookieparser=require('cookie-parser')
-const cors=require("cors")
-dotenv.config()
-const authRoutes=require('./routes/auth.routes.js')
-const messageroutes=require('./routes/message.routes.js')
-const{app,server}=require('./lib/socket.js')
-const PORT=process.env.PORT
-const path=require("path")
-// The line 'const __dirname=path.resolve()' was removed here to fix the SyntaxError.
-// We now use the built-in __dirname available in CommonJS modules.
+const express = require("express");
+const dotenv = require("dotenv");
+const { connections } = require("./lib/db.js");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
-const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+dotenv.config();
 
-app.use(express.json())
-app.use(cookieparser());
+const authRoutes = require("./routes/auth.routes.js");
+const messageRoutes = require("./routes/message.routes.js");
+
+const { app, server } = require("./lib/socket.js");
+const PORT = process.env.PORT;
+
+app.use(express.json());
+app.use(cookieParser());
+
+// CORS SETTINGS — MUST MATCH FRONTEND DOMAIN
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://chat-app-1-drsf.onrender.com", // frontend URL
+  "https://chat-app-1-drsf.onrender.com", // your frontend static site
 ];
 
 app.use(
@@ -28,19 +28,13 @@ app.use(
   })
 );
 
+// AUTH & MESSAGE APIS
+app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
 
-app.use("/api/auth",authRoutes)
-app.use("/api/message",messageroutes)
-// if(process.env.NODE_ENV==="production"){
-//   app.use(express.static(path.join(PROJECT_ROOT,"frontend/dist")))
-// // request is coming on any route then the entry point will be the index.html 
-//   app.get("/*",(req,res)=>{
-//     res.sendFile(path.join(PROJECT_ROOT,"frontend","dist","index.html"));
-//   })
-// }
+// NO wildcard route here (frontend deployed separately)
 
-
-server.listen(PORT,()=>{console.log("server is running on port:"+PORT)
-connections()
-
-})
+server.listen(PORT, () => {
+  console.log("server is running on port:" + PORT);
+  connections();
+});

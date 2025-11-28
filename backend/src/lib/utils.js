@@ -1,28 +1,18 @@
-const jwt=require('jsonwebtoken')
-function generateToken(userId,res){
+const jwt = require("jsonwebtoken");
 
-    const token=jwt.sign({userId},process.env.SECRET,{
-        expiresIn:"7d"
+function generateToken(userId, res) {
+    const token = jwt.sign({ userId }, process.env.SECRET, {
+        expiresIn: "7d",
+    });
 
-    })
-    res.cookie("jwt",token,{
-        maxAge:7*24*60*60*1000,
-        httpOnly:true,
-        sameSite:"strict",
-        secure:process.env.NODE_ENV!=="development"
+    res.cookie("jwt", token, {
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        secure: true,          // MUST be true on Render (HTTPS)
+        sameSite: "none",      // Allows cross-domain cookies
+    });
 
-    })
     return token;
-
-
-
-
-
-
 }
 
-
-
-
-
-module.exports={generateToken}
+module.exports = generateToken;
