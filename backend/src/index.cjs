@@ -16,17 +16,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS SETTINGS — MUST MATCH FRONTEND DOMAIN
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://chat-app-1-drsf.onrender.com", // your frontend static site
-];
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://chat-1-07pq.onrender.com'],
+    credentials: true
+}));
 
 // AUTH & MESSAGE APIS
 app.use("/api/auth", authRoutes);
