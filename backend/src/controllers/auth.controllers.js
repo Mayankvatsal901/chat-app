@@ -1,6 +1,6 @@
 const User=require('../models/user.model')
 const bcrypt=require("bcryptjs")
-const{generateToken}=require('../lib/utils')
+const generateToken=require('../lib/utils')
 //const cloudinary = require("cloudinary").v2;
 const cloudinary = require("../lib/cloudinary"); 
 
