@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 // CORS SETTINGS — MUST MATCH FRONTEND DOMAIN
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://chat-1-07pq.onrender.com'],
+    origin: ['http://localhost:5175', 'https://chat-1-07pq.onrender.com'],
     credentials: true
 }));
 
